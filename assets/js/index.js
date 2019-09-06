@@ -106,7 +106,11 @@ const postComment = async (method) => {
   if(method === 'DELETE') {
     toggleModal('deleteCommentModal', false);
   } else {
-  toggleModal('commentModal', false)
+  toggleModal('commentModal', false);
+  document.getElementById('comment-name').value = '';
+  document.getElementById('comment-avatar').value = '';
+  document.getElementById('comment-message').value = '';
+
   }
 }
 const postNews = async (method) => {
@@ -129,6 +133,10 @@ const postNews = async (method) => {
     toggleModal('editNewsModal', false);
     window.location.reload()
   }
+  document.getElementById('news-author').value = '';
+  document.getElementById('news-avatar').value = '';
+  document.getElementById('news-title').value = '';
+  document.getElementById('news-url').value = '';
 }
 
 const deleteNews = async () => {
