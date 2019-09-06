@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Roboto Font -->
+    <link
+      href="http://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <title>News App</title>
+  </head>
+  <body>
+    <div class="app-header">
+      <h3>Daily Express</h3>
+      <button class="btn white" onclick="toggleModal('newsModal', true)">
+        Post News <i class="material-icons">add</i>
+      </button>
+    </div>
+    <div class="container">
+      <div class="content" id="newsListContainer"></div>
+      <div class="pagination">
+        <button class="btn" onclick="getPage(currentPage, false)">
+          <i class="material-icons">arrow_back_ios</i>Previous
+        </button>
+        <p id="currentPage"></p>
+        <button class="btn" onclick="getPage(currentPage, true)">
+          Next<i class="material-icons">arrow_forward_ios</i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="app-footer">
+      <p>&copyDaily Express</p>
+    </div>
+
+    <!-- News Modal  -->
+    <div id="newsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('newsModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Post News</h2>
+        </div>
+        <div class="modal-body">
+          <div class="group">
+            <input class="input" type="text" required id="news-author" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Author</label>
+          </div>
+
+          <div class="group">
+            <input class="input" type="text" required id="news-avatar" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Avatar</label>
+          </div>
+
+          <div class="group">
+            <input class="input" type="text" required id="news-title" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Title</label>
+          </div>
+          <div class="group last-input">
+            <input class="input" type="text" required id="news-url" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Url</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="postNews('POST')">
+            submit
+          </button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('newsModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>

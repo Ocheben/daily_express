@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <title>News</title>
+  </head>
+  <body>
+    <div class="app-header">
+      <a class="app-title" href="/">Daily Express</a>
+      <div style="display: flex">
+        <button class="btn white" onclick="toggleModal('editNewsModal', true)">
+          Edit News<i class="material-icons">edit</i>
+        </button>
+        <button
+          class="btn white"
+          onclick="toggleModal('deleteNewsModal', true)"
+        >
+          Delete News<i class="material-icons">delete</i>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <div id="slide-container"></div>
+      <div class="story">
+        <div>
+          <h3>HeadLine</h3>
+          <button
+            class="btn"
+            onclick="toggleModal('imageModal', true)"
+            style="float: right"
+          >
+            Add Image <i class="material-icons">add</i>
+          </button>
+        </div>
+        <p id="story"></p>
+      </div>
+      <div class="comments">
+        <div class="comments-header">
+          <h3>Comments</h3>
+          <button
+            class="btn"
+            onclick="toggleModal('commentModal', true); editComment = false"
+            style="float: right"
+          >
+            Add Comment <i class="material-icons">add</i>
+          </button>
+        </div>
+        <div id="comments-container"></div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="app-footer">
+      <p>&copyDaily Express</p>
+    </div>
+
+    <!-- Comment Modal  -->
+    <div id="commentModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('commentModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Post Comment</h2>
+        </div>
+        <div class="modal-body">
+          <div class="group">
+            <input class="input" type="text" required id="comment-name" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Name</label>
+          </div>
+
+          <div class="group">
+            <input class="input" type="text" required id="comment-avatar" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Avatar</label>
+          </div>
+
+          <div class="group last-input">
+            <textarea
+              class="input"
+              type="text"
+              rows="4"
+              required
+              id="comment-message"
+            ></textarea>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Comment</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn"
+            onclick="postComment(editComment ? 'PUT' : 'POST')"
+          >
+            submit
+          </button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('commentModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Image Modal -->
+    <div id="imageModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('imageModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Modal Header</h2>
+        </div>
+        <div class="modal-body">
+          <div class="group">
+            <input class="input" type="text" required id="image-url" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Image</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="postImage()">
+            submit
+          </button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('imageModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete News Modal -->
+    <div id="deleteNewsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('deleteNewsModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Delete News</h2>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this story?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="deleteNews()">Yes</button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('deleteNewsModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Delete Comment Modal -->
+    <div id="deleteCommentModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('deleteCommentModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Delete Comment</h2>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this comment?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="postComment('DELETE')">
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('deleteCommentModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- News Modal  -->
+    <div id="editNewsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="toggleModal('editNewsModal', false)"
+            >&times;</span
+          >
+          <h2 class="modal-title">Edit News</h2>
+        </div>
+        <div class="modal-body">
+          <div class="group">
+            <input class="input" type="text" required id="news-author" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Author</label>
+          </div>
+
+          <div class="group">
+            <input class="input" type="text" required id="news-avatar" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Avatar</label>
+          </div>
+
+          <div class="group">
+            <input class="input" type="text" required id="news-title" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Title</label>
+          </div>
+          <div class="group last-input">
+            <input class="input" type="text" required id="news-url" />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Url</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="postNews('PUT')">
+            submit
+          </button>
+          <button
+            type="button"
+            class="btn"
+            onclick="toggleModal('editNewsModal', false)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>
